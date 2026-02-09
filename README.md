@@ -28,6 +28,36 @@ flutter build apk --debug
 
 If you want me to generate Android/iOS native folders here, I can run `flutter create .` for you — but the dev container may not have Flutter installed. If you want, I can instead provide a complete generated project structure.
 
+## Authentication & Test Credentials
+
+The app includes a login screen with Firebase Authentication. Test credentials are pre-filled:
+
+- **Email:** reviewer@cliente.app
+- **Password:** Review@12345
+
+### Firebase Setup (Required for builds)
+
+Before running the app, configure Firebase:
+
+1. Create a Firebase project at https://console.firebase.google.com
+2. Add an Android app to your project and download `google-services.json`
+3. Place `google-services.json` in `android/app/`
+4. Install FlutterFire CLI:
+   ```bash
+   dart pub global activate flutterfire_cli
+   ```
+5. Configure Firebase in your Flutter project:
+   ```bash
+   flutterfire configure
+   ```
+   This will update `lib/firebase_options.dart` with your Firebase credentials.
+
+6. Create a test user in Firebase Console → Authentication:
+   - Email: `reviewer@cliente.app`
+   - Password: `Review@12345`
+
+After setup, the app will show a login screen. Use the test credentials above to authenticate.
+
 ## Preparing for Google Play (release)
 
 I created a placeholder upload keystore at `android/app/upload-keystore.jks` and a `android/key.properties` file with placeholder passwords. Replace these passwords and the keystore with your secure upload key before publishing.
