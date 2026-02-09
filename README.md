@@ -65,6 +65,7 @@ Usage notes for CI:
 - To let the workflow sign with your keystore, add a secret `ANDROID_KEYSTORE_BASE64` containing the base64-encoded keystore, and these secrets: `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_PASSWORD`, `ANDROID_KEY_ALIAS`.
 - The workflow will produce an `.aab` artifact you can download from the workflow run.
 
-Local helper script:
+Local helper scripts:
 - `scripts/prepare_local.sh` will run `flutter create .` and `flutter pub get` (requires Flutter installed locally).
+- `scripts/encode_keystore.sh <path/to/keystore.jks>` base64-encodes a keystore file so you can paste it into the GitHub secret `ANDROID_KEYSTORE_BASE64`.
 
