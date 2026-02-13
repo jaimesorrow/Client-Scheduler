@@ -18,9 +18,11 @@ void main() async {
 class ClienteApp extends StatelessWidget {
   const ClienteApp({super.key});
 
+  static final _router = AppRouter.build();
+  static final _theme = AppTheme.build();
+
   @override
   Widget build(BuildContext context) {
-    final router = AppRouter.build();
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => UserProfileProvider()),
@@ -28,8 +30,8 @@ class ClienteApp extends StatelessWidget {
       ],
       child: MaterialApp.router(
         title: 'Clientè',
-        theme: AppTheme.build(),
-        routerConfig: router,
+        theme: _theme,
+        routerConfig: _router,
       ),
     );
   }
