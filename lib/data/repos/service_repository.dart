@@ -5,12 +5,18 @@ class ServiceRepository {
   final FirebaseFirestore _firestore;
 
   ServiceRepository({FirebaseFirestore? firestore})
-      : _firestore = firestore ?? FirebaseFirestore.instance;
+    : _firestore = firestore ?? FirebaseFirestore.instance;
 
   CollectionReference<Map<String, dynamic>> _col(String businessId) =>
-      _firestore.collection('businesses').doc(businessId).collection('services');
+      _firestore
+          .collection('businesses')
+          .doc(businessId)
+          .collection('services');
 
-  Future<List<Service>> list(String businessId, {bool includeArchived = false}) async {
+  Future<List<Service>> list(
+    String businessId, {
+    bool includeArchived = false,
+  }) async {
     Query<Map<String, dynamic>> q = _col(businessId).orderBy('name');
     if (!includeArchived) {
       q = q.where('isActive', isEqualTo: true);
@@ -20,10 +26,9 @@ class ServiceRepository {
   }
 
   Future<List<Service>> listArchived(String businessId) async {
-    final snap = await _col(businessId)
-        .where('isActive', isEqualTo: false)
-        .orderBy('name')
-        .get();
+    final snap = await _col(
+      businessId,
+    ).where('isActive', isEqualTo: false).orderBy('name').get();
     return snap.docs.map((d) => Service.fromMap(d.id, d.data())).toList();
   }
 
@@ -42,7 +47,11 @@ class ServiceRepository {
     await _col(businessId).doc(service.id).update(service.toMap());
   }
 
-  Future<void> archive(String businessId, String svcId, {required bool archived}) async {
+  Future<void> archive(
+    String businessId,
+    String svcId, {
+    required bool archived,
+  }) async {
     await _col(businessId).doc(svcId).update({'isActive': !archived});
   }
 }

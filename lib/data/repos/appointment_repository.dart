@@ -5,13 +5,18 @@ class AppointmentRepository {
   final FirebaseFirestore _firestore;
 
   AppointmentRepository({FirebaseFirestore? firestore})
-      : _firestore = firestore ?? FirebaseFirestore.instance;
+    : _firestore = firestore ?? FirebaseFirestore.instance;
 
   CollectionReference<Map<String, dynamic>> _col(String businessId) =>
-      _firestore.collection('businesses').doc(businessId).collection('appointments');
+      _firestore
+          .collection('businesses')
+          .doc(businessId)
+          .collection('appointments');
 
   Future<List<Appointment>> list(String businessId) async {
-    final snap = await _col(businessId).orderBy('startAt', descending: false).get();
+    final snap = await _col(
+      businessId,
+    ).orderBy('startAt', descending: false).get();
     return snap.docs.map((d) => Appointment.fromMap(d.id, d.data())).toList();
   }
 

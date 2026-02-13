@@ -37,7 +37,10 @@ class ServiceDetailScreen extends StatelessWidget {
               }
               final service = snapshot.data;
               if (service == null) {
-                return const Text('Service not found.', style: AppTextStyles.bodyMuted);
+                return const Text(
+                  'Service not found.',
+                  style: AppTextStyles.bodyMuted,
+                );
               }
               final archived = !service.isActive;
               return Column(
@@ -49,12 +52,16 @@ class ServiceDetailScreen extends StatelessWidget {
                     '${formatDuration(service.durationMinutes)} · ${formatPrice(service.priceCents)}',
                     style: AppTextStyles.bodyMuted,
                   ),
-                  if (service.description != null && service.description!.trim().isNotEmpty) ...[
+                  if (service.description != null &&
+                      service.description!.trim().isNotEmpty) ...[
                     const SizedBox(height: AppSpacing.md),
                     Text(service.description!, style: AppTextStyles.body),
                   ] else ...[
                     const SizedBox(height: AppSpacing.md),
-                    const Text('No description.', style: AppTextStyles.bodyMuted),
+                    const Text(
+                      'No description.',
+                      style: AppTextStyles.bodyMuted,
+                    ),
                   ],
                   const Spacer(),
                   ElevatedButton(
@@ -63,8 +70,11 @@ class ServiceDetailScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: AppSpacing.sm),
                   OutlinedButton(
-                    onPressed: () => context.go('/services/$id/archive?archived=$archived'),
-                    child: Text(service.isActive ? 'Archive service' : 'Restore service'),
+                    onPressed: () =>
+                        context.go('/services/$id/archive?archived=$archived'),
+                    child: Text(
+                      service.isActive ? 'Archive service' : 'Restore service',
+                    ),
                   ),
                 ],
               );

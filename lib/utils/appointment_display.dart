@@ -1,7 +1,8 @@
 String summarizeServices(List<String> serviceNames) {
   if (serviceNames.isEmpty) return 'No services';
   if (serviceNames.length == 1) return serviceNames.first;
-  if (serviceNames.length == 2) return '${serviceNames[0]} + ${serviceNames[1]}';
+  if (serviceNames.length == 2)
+    return '${serviceNames[0]} + ${serviceNames[1]}';
   return '${serviceNames[0]} + ${serviceNames.length - 1} more';
 }
 

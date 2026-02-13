@@ -5,10 +5,13 @@ class TemplateRepository {
   final FirebaseFirestore _firestore;
 
   TemplateRepository({FirebaseFirestore? firestore})
-      : _firestore = firestore ?? FirebaseFirestore.instance;
+    : _firestore = firestore ?? FirebaseFirestore.instance;
 
   CollectionReference<Map<String, dynamic>> _col(String businessId) =>
-      _firestore.collection('businesses').doc(businessId).collection('templates');
+      _firestore
+          .collection('businesses')
+          .doc(businessId)
+          .collection('templates');
 
   Future<List<Template>> list(String businessId) async {
     final snap = await _col(businessId).orderBy('name').get();

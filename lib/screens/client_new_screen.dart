@@ -37,8 +37,10 @@ class _ClientNewScreenState extends State<ClientNewScreen> {
     final nameOk = _nameController.text.trim().isNotEmpty;
     final phone = _phoneController.text.trim();
     final email = _emailController.text.trim();
-    final phoneOk = phone.isEmpty || RegExp(r'^[0-9+()\-\s]{7,}$').hasMatch(phone);
-    final emailOk = email.isEmpty || RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$').hasMatch(email);
+    final phoneOk =
+        phone.isEmpty || RegExp(r'^[0-9+()\-\s]{7,}$').hasMatch(phone);
+    final emailOk =
+        email.isEmpty || RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$').hasMatch(email);
     return nameOk && phoneOk && emailOk;
   }
 
@@ -52,15 +54,23 @@ class _ClientNewScreenState extends State<ClientNewScreen> {
       final client = Client(
         id: '',
         fullName: _nameController.text.trim(),
-        phone: _phoneController.text.trim().isEmpty ? null : _phoneController.text.trim(),
-        email: _emailController.text.trim().isEmpty ? null : _emailController.text.trim(),
-        notes: _notesController.text.trim().isEmpty ? null : _notesController.text.trim(),
+        phone: _phoneController.text.trim().isEmpty
+            ? null
+            : _phoneController.text.trim(),
+        email: _emailController.text.trim().isEmpty
+            ? null
+            : _emailController.text.trim(),
+        notes: _notesController.text.trim().isEmpty
+            ? null
+            : _notesController.text.trim(),
         tags: tags,
         isArchived: false,
       );
       final id = await _repo.create(businessId, client);
       if (!mounted) return;
-      final returnPath = GoRouterState.of(context).uri.queryParameters['return'];
+      final returnPath = GoRouterState.of(
+        context,
+      ).uri.queryParameters['return'];
       if (returnPath != null && returnPath.isNotEmpty) {
         context.go(returnPath);
       } else {
@@ -100,26 +110,34 @@ class _ClientNewScreenState extends State<ClientNewScreen> {
               TextField(
                 controller: _phoneController,
                 keyboardType: TextInputType.phone,
-                decoration: const InputDecoration(labelText: 'Phone (optional)'),
+                decoration: const InputDecoration(
+                  labelText: 'Phone (optional)',
+                ),
                 onChanged: (_) => setState(() {}),
               ),
               const SizedBox(height: AppSpacing.lg),
               TextField(
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(labelText: 'Email (optional)'),
+                decoration: const InputDecoration(
+                  labelText: 'Email (optional)',
+                ),
                 onChanged: (_) => setState(() {}),
               ),
               const SizedBox(height: AppSpacing.lg),
               TextField(
                 controller: _notesController,
                 maxLines: 3,
-                decoration: const InputDecoration(labelText: 'Notes (optional)'),
+                decoration: const InputDecoration(
+                  labelText: 'Notes (optional)',
+                ),
               ),
               const SizedBox(height: AppSpacing.md),
               SwitchListTile(
                 value: _isVip,
-                onChanged: _isLoading ? null : (val) => setState(() => _isVip = val),
+                onChanged: _isLoading
+                    ? null
+                    : (val) => setState(() => _isVip = val),
                 title: const Text('VIP'),
                 contentPadding: EdgeInsets.zero,
               ),
@@ -129,7 +147,9 @@ class _ClientNewScreenState extends State<ClientNewScreen> {
               ],
               const Spacer(),
               ElevatedButton(
-                onPressed: _isValid && !_isLoading ? () => _save(profile.businessId) : null,
+                onPressed: _isValid && !_isLoading
+                    ? () => _save(profile.businessId)
+                    : null,
                 child: _isLoading
                     ? const SizedBox(
                         height: 18,

@@ -5,12 +5,15 @@ class ClientRepository {
   final FirebaseFirestore _firestore;
 
   ClientRepository({FirebaseFirestore? firestore})
-      : _firestore = firestore ?? FirebaseFirestore.instance;
+    : _firestore = firestore ?? FirebaseFirestore.instance;
 
   CollectionReference<Map<String, dynamic>> _col(String businessId) =>
       _firestore.collection('businesses').doc(businessId).collection('clients');
 
-  Future<List<Client>> list(String businessId, {bool includeArchived = false}) async {
+  Future<List<Client>> list(
+    String businessId, {
+    bool includeArchived = false,
+  }) async {
     Query<Map<String, dynamic>> q = _col(businessId).orderBy('fullName');
     if (!includeArchived) {
       q = q.where('isArchived', isEqualTo: false);
@@ -20,10 +23,9 @@ class ClientRepository {
   }
 
   Future<List<Client>> listArchived(String businessId) async {
-    final snap = await _col(businessId)
-        .where('isArchived', isEqualTo: true)
-        .orderBy('fullName')
-        .get();
+    final snap = await _col(
+      businessId,
+    ).where('isArchived', isEqualTo: true).orderBy('fullName').get();
     return snap.docs.map((d) => Client.fromMap(d.id, d.data())).toList();
   }
 
@@ -49,7 +51,11 @@ class ClientRepository {
     });
   }
 
-  Future<void> archive(String businessId, String clientId, {required bool archived}) async {
+  Future<void> archive(
+    String businessId,
+    String clientId, {
+    required bool archived,
+  }) async {
     await _col(businessId).doc(clientId).update({
       'isArchived': archived,
       'updatedAt': FieldValue.serverTimestamp(),

@@ -6,7 +6,7 @@ class BusinessSettingsProvider extends ChangeNotifier {
   final BusinessSettingsRepository _repo;
 
   BusinessSettingsProvider({BusinessSettingsRepository? repo})
-      : _repo = repo ?? BusinessSettingsRepository();
+    : _repo = repo ?? BusinessSettingsRepository();
 
   BusinessSettings? settings;
   bool isLoading = false;

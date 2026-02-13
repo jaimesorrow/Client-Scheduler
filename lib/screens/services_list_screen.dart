@@ -79,19 +79,27 @@ class _ServicesListScreenState extends State<ServicesListScreen> {
                     }
                     if (snapshot.hasError) {
                       return Center(
-                        child: Text('Unable to load services.', style: AppTextStyles.bodyMuted),
+                        child: Text(
+                          'Unable to load services.',
+                          style: AppTextStyles.bodyMuted,
+                        ),
                       );
                     }
                     final query = _searchController.text.trim().toLowerCase();
                     var services = snapshot.data ?? [];
                     if (query.isNotEmpty) {
-                      services = services.where((s) => s.name.toLowerCase().contains(query)).toList();
+                      services = services
+                          .where((s) => s.name.toLowerCase().contains(query))
+                          .toList();
                     }
                     if (services.isEmpty) {
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text('No services yet.', style: AppTextStyles.bodyMuted),
+                          const Text(
+                            'No services yet.',
+                            style: AppTextStyles.bodyMuted,
+                          ),
                           const SizedBox(height: AppSpacing.lg),
                           ElevatedButton(
                             onPressed: () => context.go('/services/new'),
@@ -105,7 +113,8 @@ class _ServicesListScreenState extends State<ServicesListScreen> {
                       separatorBuilder: (_, __) => const Divider(),
                       itemBuilder: (context, index) {
                         final service = services[index];
-                        final details = '${formatDuration(service.durationMinutes)} · ${formatPrice(service.priceCents)}';
+                        final details =
+                            '${formatDuration(service.durationMinutes)} · ${formatPrice(service.priceCents)}';
                         return ListTile(
                           title: Text(service.name),
                           subtitle: service.isActive

@@ -18,9 +18,7 @@ class AppTheme {
 
     return base.copyWith(
       textTheme: GoogleFonts.interTextTheme(base.textTheme).copyWith(
-        displayLarge: GoogleFonts.playfairDisplay(
-          textStyle: AppTextStyles.h1,
-        ),
+        displayLarge: GoogleFonts.playfairDisplay(textStyle: AppTextStyles.h1),
       ),
       appBarTheme: const AppBarTheme(
         backgroundColor: AppColors.bg,

@@ -41,7 +41,8 @@ class _ServiceEditScreenState extends State<ServiceEditScreen> {
     final duration = int.tryParse(_durationController.text.trim());
     final durationOk = duration != null && duration > 0;
     final price = int.tryParse(_priceController.text.trim());
-    final priceOk = _priceController.text.trim().isEmpty || (price != null && price >= 0);
+    final priceOk =
+        _priceController.text.trim().isEmpty || (price != null && price >= 0);
     return nameOk && durationOk && priceOk;
   }
 
@@ -71,7 +72,9 @@ class _ServiceEditScreenState extends State<ServiceEditScreen> {
         name: _nameController.text.trim(),
         durationMinutes: int.parse(_durationController.text.trim()),
         priceCents: price,
-        description: _descController.text.trim().isEmpty ? null : _descController.text.trim(),
+        description: _descController.text.trim().isEmpty
+            ? null
+            : _descController.text.trim(),
         isActive: _isActive,
       );
       await _repo.update(businessId, service);
@@ -115,35 +118,48 @@ class _ServiceEditScreenState extends State<ServiceEditScreen> {
                 children: [
                   TextField(
                     controller: _nameController,
-                    decoration: const InputDecoration(labelText: 'Service name'),
+                    decoration: const InputDecoration(
+                      labelText: 'Service name',
+                    ),
                     onChanged: (_) => setState(() {}),
                   ),
                   const SizedBox(height: AppSpacing.lg),
                   TextField(
                     controller: _durationController,
                     keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(labelText: 'Duration (minutes)'),
+                    decoration: const InputDecoration(
+                      labelText: 'Duration (minutes)',
+                    ),
                     onChanged: (_) => setState(() {}),
                   ),
                   const SizedBox(height: AppSpacing.lg),
                   TextField(
                     controller: _priceController,
                     keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(labelText: 'Price (cents, optional)'),
+                    decoration: const InputDecoration(
+                      labelText: 'Price (cents, optional)',
+                    ),
                   ),
                   const SizedBox(height: AppSpacing.lg),
                   TextField(
                     controller: _descController,
                     maxLines: 3,
-                    decoration: const InputDecoration(labelText: 'Description (optional)'),
+                    decoration: const InputDecoration(
+                      labelText: 'Description (optional)',
+                    ),
                   ),
                   if (_error != null) ...[
                     const SizedBox(height: AppSpacing.md),
-                    Text(_error!, style: const TextStyle(color: AppColors.danger)),
+                    Text(
+                      _error!,
+                      style: const TextStyle(color: AppColors.danger),
+                    ),
                   ],
                   const Spacer(),
                   ElevatedButton(
-                    onPressed: _isValid && !_isLoading ? () => _save(profile.businessId, id) : null,
+                    onPressed: _isValid && !_isLoading
+                        ? () => _save(profile.businessId, id)
+                        : null,
                     child: _isLoading
                         ? const SizedBox(
                             height: 18,
@@ -154,7 +170,9 @@ class _ServiceEditScreenState extends State<ServiceEditScreen> {
                   ),
                   const SizedBox(height: AppSpacing.sm),
                   OutlinedButton(
-                    onPressed: _isLoading ? null : () => context.go('/services/$id'),
+                    onPressed: _isLoading
+                        ? null
+                        : () => context.go('/services/$id'),
                     child: const Text('Cancel'),
                   ),
                 ],

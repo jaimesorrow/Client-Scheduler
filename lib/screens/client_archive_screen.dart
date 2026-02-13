@@ -39,7 +39,8 @@ class _ClientArchiveScreenState extends State<ClientArchiveScreen> {
   @override
   Widget build(BuildContext context) {
     final id = GoRouterState.of(context).pathParameters['id'] ?? '';
-    final archived = GoRouterState.of(context).uri.queryParameters['archived'] == 'true';
+    final archived =
+        GoRouterState.of(context).uri.queryParameters['archived'] == 'true';
     return Consumer<UserProfileProvider>(
       builder: (context, profileProvider, _) {
         final profile = profileProvider.profile;

@@ -4,26 +4,27 @@ Clientè is a luxury client management platform built for high-value service bus
 
 ## Flutter test setup
 
-Prerequisites: install the Flutter SDK (https://flutter.dev) and ensure `flutter` is on your PATH.
+This repository includes a local Flutter SDK at `.flutter/flutter`.
+Use `scripts/flutterw` so commands work even when `flutter` is not on global PATH.
 
 To initialize platform folders (Android/iOS) and get dependencies, run in the project root:
 
 ```bash
-flutter create .
-flutter pub get
+scripts/flutterw create .
+scripts/flutterw pub get
 ```
 
 Run on an Android emulator or connected device:
 
 ```bash
-flutter devices
-flutter run -d <device-id>
+scripts/flutterw devices
+scripts/flutterw run -d <device-id>
 ```
 
 To build an APK for testing on a phone:
 
 ```bash
-flutter build apk --debug
+scripts/flutterw build apk --debug
 ```
 
 If you want me to generate Android/iOS native folders here, I can run `flutter create .` for you — but the dev container may not have Flutter installed. If you want, I can instead provide a complete generated project structure.
@@ -65,18 +66,18 @@ I created a placeholder upload keystore at `android/app/upload-keystore.jks` and
 Steps to produce a Play-ready AAB and upload:
 
 ```bash
-# (1) Ensure Flutter is installed locally
-flutter --version
+# (1) Validate local Flutter SDK
+scripts/flutterw --version
 
 # (2) Generate platform folders if you haven't already (run locally)
-flutter create .
-flutter pub get
+scripts/flutterw create .
+scripts/flutterw pub get
 
 # (3) Verify the Android package name is set in
 #     android/app/src/main/AndroidManifest.xml (package="com.client.scheduler")
 
 # (4) Build an Android App Bundle for Play
-flutter build appbundle --release
+scripts/flutterw build appbundle --release
 
 # (5) Upload the generated .aab from build/app/outputs/bundle/release/ to the Play Console
 ```
@@ -98,4 +99,3 @@ Usage notes for CI:
 Local helper scripts:
 - `scripts/prepare_local.sh` will run `flutter create .` and `flutter pub get` (requires Flutter installed locally).
 - `scripts/encode_keystore.sh <path/to/keystore.jks>` base64-encodes a keystore file so you can paste it into the GitHub secret `ANDROID_KEYSTORE_BASE64`.
-

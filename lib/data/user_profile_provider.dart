@@ -5,7 +5,8 @@ import 'user_repository.dart';
 class UserProfileProvider extends ChangeNotifier {
   final UserRepository _repo;
 
-  UserProfileProvider({UserRepository? repo}) : _repo = repo ?? UserRepository();
+  UserProfileProvider({UserRepository? repo})
+    : _repo = repo ?? UserRepository();
 
   UserProfile? profile;
   bool isLoading = false;

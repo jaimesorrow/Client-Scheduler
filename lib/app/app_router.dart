@@ -80,11 +80,14 @@ import '../screens/welcome_screen.dart';
 class AppRouter {
   static final GoRouter _router = GoRouter(
     initialLocation: '/splash',
-    refreshListenable: GoRouterRefreshStream(FirebaseAuth.instance.authStateChanges()),
+    refreshListenable: GoRouterRefreshStream(
+      FirebaseAuth.instance.authStateChanges(),
+    ),
     redirect: (context, state) {
       final user = FirebaseAuth.instance.currentUser;
       final path = state.matchedLocation;
-      final ownerOnly = path.startsWith('/availability') ||
+      final ownerOnly =
+          path.startsWith('/availability') ||
           path.startsWith('/analytics') ||
           path.startsWith('/settings');
       final profileProvider = context.read<UserProfileProvider>();
@@ -92,7 +95,8 @@ class AppRouter {
       final profile = profileProvider.profile;
       final settings = settingsProvider.settings;
       final isOwner = profile?.role == 'owner';
-      final loggingIn = path == '/login' ||
+      final loggingIn =
+          path == '/login' ||
           path == '/signup' ||
           path == '/welcome' ||
           path == '/reset' ||
@@ -149,7 +153,10 @@ class AppRouter {
       _defaultRoute('/onboarding/business', const OnboardingBusinessScreen()),
       _defaultRoute('/onboarding/brand', const OnboardingBrandScreen()),
       _defaultRoute('/onboarding/hours', const OnboardingHoursScreen()),
-      _defaultRoute('/onboarding/availability', const OnboardingAvailabilityScreen()),
+      _defaultRoute(
+        '/onboarding/availability',
+        const OnboardingAvailabilityScreen(),
+      ),
       _defaultRoute('/onboarding/finish', const OnboardingCompleteScreen()),
       _fastRoute('/dashboard', const DashboardHomeScreen()),
       _defaultRoute('/search', const GlobalSearchScreen()),
@@ -169,10 +176,22 @@ class AppRouter {
       _fastRoute('/appointments/:id/cancel', const ApptCancelScreen()),
       _fastRoute('/appointments/:id/no-show', const ApptNoShowScreen()),
       _fastRoute('/appointments/:id/complete', const ApptCompleteScreen()),
-      _fastRoute('/appointments/new/step-1-client', const ApptNewClientScreen()),
-      _fastRoute('/appointments/new/step-2-service', const ApptNewServiceScreen()),
-      _fastRoute('/appointments/new/step-3-datetime', const ApptNewTimeScreen()),
-      _fastRoute('/appointments/new/step-4-confirm', const ApptNewReviewScreen()),
+      _fastRoute(
+        '/appointments/new/step-1-client',
+        const ApptNewClientScreen(),
+      ),
+      _fastRoute(
+        '/appointments/new/step-2-service',
+        const ApptNewServiceScreen(),
+      ),
+      _fastRoute(
+        '/appointments/new/step-3-datetime',
+        const ApptNewTimeScreen(),
+      ),
+      _fastRoute(
+        '/appointments/new/step-4-confirm',
+        const ApptNewReviewScreen(),
+      ),
       _fastRoute('/services', const ServicesListScreen()),
       _fastRoute('/services/new', const ServiceNewScreen()),
       _fastRoute('/services/:id', const ServiceDetailScreen()),
@@ -185,7 +204,10 @@ class AppRouter {
       _defaultRoute('/templates/:id/use', const TemplateUseScreen()),
       _defaultRoute('/availability', const AvailabilityOverviewScreen()),
       _defaultRoute('/availability/hours', const AvailabilityHoursScreen()),
-      _defaultRoute('/availability/blackouts', const AvailabilityBlackoutsScreen()),
+      _defaultRoute(
+        '/availability/blackouts',
+        const AvailabilityBlackoutsScreen(),
+      ),
       _defaultRoute('/availability/week', const AvailabilityWeekScreen()),
       _defaultRoute('/availability/time-off', const TimeoffListScreen()),
       _defaultRoute('/availability/time-off/new', const TimeoffCreateScreen()),
@@ -193,14 +215,26 @@ class AppRouter {
       _defaultRoute('/analytics/detail', const AnalyticsDetailScreen()),
       _defaultRoute('/system', const SystemHubScreen()),
       _defaultRoute('/settings', const SettingsHomeScreen()),
-      _defaultRoute('/settings/business-profile', const SettingsBusinessProfileScreen()),
+      _defaultRoute(
+        '/settings/business-profile',
+        const SettingsBusinessProfileScreen(),
+      ),
       _defaultRoute('/settings/team', const SettingsTeamScreen()),
       _defaultRoute('/settings/roles', const SettingsRolesScreen()),
-      _defaultRoute('/settings/notifications', const SettingsNotificationsScreen()),
+      _defaultRoute(
+        '/settings/notifications',
+        const SettingsNotificationsScreen(),
+      ),
       _defaultRoute('/settings/policies', const SettingsPoliciesScreen()),
-      _defaultRoute('/settings/integrations', const SettingsIntegrationsScreen()),
+      _defaultRoute(
+        '/settings/integrations',
+        const SettingsIntegrationsScreen(),
+      ),
       _defaultRoute('/settings/logout', const SettingsLogoutScreen()),
-      _defaultRoute('/settings/delete-account', const SettingsDeleteAccountScreen()),
+      _defaultRoute(
+        '/settings/delete-account',
+        const SettingsDeleteAccountScreen(),
+      ),
       _defaultRoute('/account/profile', const AccountProfileScreen()),
       _defaultRoute('/account/change-password', const ChangePasswordScreen()),
       _defaultRoute('/account/delete', const AccountDeleteScreen()),
@@ -217,19 +251,14 @@ class AppRouter {
   static GoRouter build() => _router;
 
   static GoRoute _defaultRoute(String path, Widget child) {
-    return GoRoute(
-      path: path,
-      builder: (context, state) => child,
-    );
+    return GoRoute(path: path, builder: (context, state) => child);
   }
 
   static GoRoute _fastRoute(String path, Widget child) {
     return GoRoute(
       path: path,
-      pageBuilder: (context, state) => NoTransitionPage<void>(
-        key: state.pageKey,
-        child: child,
-      ),
+      pageBuilder: (context, state) =>
+          NoTransitionPage<void>(key: state.pageKey, child: child),
     );
   }
 }

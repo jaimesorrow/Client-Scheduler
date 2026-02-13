@@ -36,7 +36,10 @@ class ClientDetailScreen extends StatelessWidget {
               }
               final client = snapshot.data;
               if (client == null) {
-                return const Text('Client not found.', style: AppTextStyles.bodyMuted);
+                return const Text(
+                  'Client not found.',
+                  style: AppTextStyles.bodyMuted,
+                );
               }
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,11 +66,17 @@ class ClientDetailScreen extends StatelessWidget {
                   const SizedBox(height: AppSpacing.lg),
                   Text('Notes', style: AppTextStyles.body),
                   const SizedBox(height: AppSpacing.sm),
-                  Text(client.notes ?? 'No notes yet.', style: AppTextStyles.bodyMuted),
+                  Text(
+                    client.notes ?? 'No notes yet.',
+                    style: AppTextStyles.bodyMuted,
+                  ),
                   const SizedBox(height: AppSpacing.lg),
                   Text('History', style: AppTextStyles.body),
                   const SizedBox(height: AppSpacing.sm),
-                  const Text('No appointments yet.', style: AppTextStyles.bodyMuted),
+                  const Text(
+                    'No appointments yet.',
+                    style: AppTextStyles.bodyMuted,
+                  ),
                   const Spacer(),
                   ElevatedButton(
                     onPressed: () => context.go('/appointments/new/client'),
@@ -81,7 +90,9 @@ class ClientDetailScreen extends StatelessWidget {
                   const SizedBox(height: AppSpacing.sm),
                   OutlinedButton(
                     onPressed: () => context.go('/clients/$id/archive'),
-                    child: Text(client.isArchived ? 'Restore client' : 'Archive client'),
+                    child: Text(
+                      client.isArchived ? 'Restore client' : 'Archive client',
+                    ),
                   ),
                 ],
               );

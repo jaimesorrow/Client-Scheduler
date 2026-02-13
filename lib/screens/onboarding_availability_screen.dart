@@ -7,10 +7,12 @@ class OnboardingAvailabilityScreen extends StatefulWidget {
   const OnboardingAvailabilityScreen({super.key});
 
   @override
-  State<OnboardingAvailabilityScreen> createState() => _OnboardingAvailabilityScreenState();
+  State<OnboardingAvailabilityScreen> createState() =>
+      _OnboardingAvailabilityScreenState();
 }
 
-class _OnboardingAvailabilityScreenState extends State<OnboardingAvailabilityScreen> {
+class _OnboardingAvailabilityScreenState
+    extends State<OnboardingAvailabilityScreen> {
   final Map<String, bool> _enabled = {
     'Mon': true,
     'Tue': true,
@@ -53,7 +55,9 @@ class _OnboardingAvailabilityScreenState extends State<OnboardingAvailabilityScr
           ..._enabled.keys.map((day) {
             return SwitchListTile(
               value: _enabled[day]!,
-              onChanged: _isLoading ? null : (val) => setState(() => _enabled[day] = val),
+              onChanged: _isLoading
+                  ? null
+                  : (val) => setState(() => _enabled[day] = val),
               title: Text(day, style: AppTextStyles.body),
               contentPadding: EdgeInsets.zero,
             );
@@ -75,7 +79,9 @@ class _OnboardingAvailabilityScreenState extends State<OnboardingAvailabilityScr
           ),
           const SizedBox(height: AppSpacing.sm),
           OutlinedButton(
-            onPressed: _isLoading ? null : () => context.go('/onboarding/business'),
+            onPressed: _isLoading
+                ? null
+                : () => context.go('/onboarding/business'),
             child: const Text('Back'),
           ),
         ],

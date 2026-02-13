@@ -7,7 +7,8 @@ class OnboardingBusinessScreen extends StatefulWidget {
   const OnboardingBusinessScreen({super.key});
 
   @override
-  State<OnboardingBusinessScreen> createState() => _OnboardingBusinessScreenState();
+  State<OnboardingBusinessScreen> createState() =>
+      _OnboardingBusinessScreenState();
 }
 
 class _OnboardingBusinessScreenState extends State<OnboardingBusinessScreen> {
@@ -61,14 +62,16 @@ class _OnboardingBusinessScreenState extends State<OnboardingBusinessScreen> {
           ),
           const SizedBox(height: AppSpacing.lg),
           DropdownButtonFormField<String>(
-            value: _timezone,
+            initialValue: _timezone,
             items: const [
               DropdownMenuItem(
                 value: 'America/Anchorage',
                 child: Text('America/Anchorage'),
               ),
             ],
-            onChanged: _isLoading ? null : (val) => setState(() => _timezone = val ?? _timezone),
+            onChanged: _isLoading
+                ? null
+                : (val) => setState(() => _timezone = val ?? _timezone),
             decoration: const InputDecoration(labelText: 'Timezone'),
           ),
           const SizedBox(height: AppSpacing.lg),
@@ -93,7 +96,9 @@ class _OnboardingBusinessScreenState extends State<OnboardingBusinessScreen> {
           ),
           const SizedBox(height: AppSpacing.sm),
           OutlinedButton(
-            onPressed: _isLoading ? null : () => context.go('/onboarding/welcome'),
+            onPressed: _isLoading
+                ? null
+                : () => context.go('/onboarding/welcome'),
             child: const Text('Back'),
           ),
         ],

@@ -12,8 +12,14 @@ class ApptDetailScreen extends StatelessWidget {
       {'name': 'Cut', 'duration': 45, 'price': 4500},
       {'name': 'Color', 'duration': 60, 'price': 8500},
     ];
-    final totalDuration = services.fold<int>(0, (sum, s) => sum + (s['duration'] as int));
-    final totalPrice = services.fold<int>(0, (sum, s) => sum + (s['price'] as int));
+    final totalDuration = services.fold<int>(
+      0,
+      (sum, s) => sum + (s['duration'] as int),
+    );
+    final totalPrice = services.fold<int>(
+      0,
+      (sum, s) => sum + (s['price'] as int),
+    );
     return ScreenScaffold(
       title: 'Appointment',
       child: Column(
@@ -28,7 +34,9 @@ class ApptDetailScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(s['name'] as String),
-                  Text('${formatDuration(s['duration'] as int)} · ${formatPrice(s['price'] as int)}'),
+                  Text(
+                    '${formatDuration(s['duration'] as int)} · ${formatPrice(s['price'] as int)}',
+                  ),
                 ],
               ),
             );
@@ -38,7 +46,9 @@ class ApptDetailScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text('Total'),
-              Text('${formatDuration(totalDuration)} · ${formatPrice(totalPrice)}'),
+              Text(
+                '${formatDuration(totalDuration)} · ${formatPrice(totalPrice)}',
+              ),
             ],
           ),
           const SizedBox(height: AppSpacing.lg),

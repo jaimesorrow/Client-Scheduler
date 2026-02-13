@@ -37,7 +37,8 @@ class _ServiceNewScreenState extends State<ServiceNewScreen> {
     final duration = int.tryParse(_durationController.text.trim());
     final durationOk = duration != null && duration > 0;
     final price = int.tryParse(_priceController.text.trim());
-    final priceOk = _priceController.text.trim().isEmpty || (price != null && price >= 0);
+    final priceOk =
+        _priceController.text.trim().isEmpty || (price != null && price >= 0);
     return nameOk && durationOk && priceOk;
   }
 
@@ -53,12 +54,16 @@ class _ServiceNewScreenState extends State<ServiceNewScreen> {
         name: _nameController.text.trim(),
         durationMinutes: int.parse(_durationController.text.trim()),
         priceCents: price,
-        description: _descController.text.trim().isEmpty ? null : _descController.text.trim(),
+        description: _descController.text.trim().isEmpty
+            ? null
+            : _descController.text.trim(),
         isActive: true,
       );
       final id = await _repo.create(businessId, service);
       if (!mounted) return;
-      final returnPath = GoRouterState.of(context).uri.queryParameters['return'];
+      final returnPath = GoRouterState.of(
+        context,
+      ).uri.queryParameters['return'];
       if (returnPath != null && returnPath.isNotEmpty) {
         context.go(returnPath);
       } else {
@@ -98,20 +103,26 @@ class _ServiceNewScreenState extends State<ServiceNewScreen> {
               TextField(
                 controller: _durationController,
                 keyboardType: TextInputType.number,
-                decoration: const InputDecoration(labelText: 'Duration (minutes)'),
+                decoration: const InputDecoration(
+                  labelText: 'Duration (minutes)',
+                ),
                 onChanged: (_) => setState(() {}),
               ),
               const SizedBox(height: AppSpacing.lg),
               TextField(
                 controller: _priceController,
                 keyboardType: TextInputType.number,
-                decoration: const InputDecoration(labelText: 'Price (cents, optional)'),
+                decoration: const InputDecoration(
+                  labelText: 'Price (cents, optional)',
+                ),
               ),
               const SizedBox(height: AppSpacing.lg),
               TextField(
                 controller: _descController,
                 maxLines: 3,
-                decoration: const InputDecoration(labelText: 'Description (optional)'),
+                decoration: const InputDecoration(
+                  labelText: 'Description (optional)',
+                ),
               ),
               if (_error != null) ...[
                 const SizedBox(height: AppSpacing.md),
@@ -119,7 +130,9 @@ class _ServiceNewScreenState extends State<ServiceNewScreen> {
               ],
               const Spacer(),
               ElevatedButton(
-                onPressed: _isValid && !_isLoading ? () => _save(profile.businessId) : null,
+                onPressed: _isValid && !_isLoading
+                    ? () => _save(profile.businessId)
+                    : null,
                 child: _isLoading
                     ? const SizedBox(
                         height: 18,

@@ -1,21 +1,19 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if ! command -v flutter >/dev/null 2>&1; then
-  echo "flutter not found on PATH. Install Flutter and retry." >&2
-  exit 1
-fi
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+FLUTTER_CMD="$REPO_ROOT/scripts/flutterw"
 
 echo "== Flutter version =="
-flutter --version
+"$FLUTTER_CMD" --version
 
 echo ""
 echo "== Flutter doctor =="
-flutter doctor
+"$FLUTTER_CMD" doctor
 
 echo ""
 echo "== Flutter devices =="
-flutter devices
+"$FLUTTER_CMD" devices
 
 echo ""
 echo "Tip: On Chromebook, the built-in Android environment should appear as a device in 'flutter devices'."

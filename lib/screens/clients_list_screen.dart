@@ -79,22 +79,38 @@ class _ClientsListScreenState extends State<ClientsListScreen> {
                     }
                     if (snapshot.hasError) {
                       return Center(
-                        child: Text('Unable to load clients.', style: AppTextStyles.bodyMuted),
+                        child: Text(
+                          'Unable to load clients.',
+                          style: AppTextStyles.bodyMuted,
+                        ),
                       );
                     }
                     final query = _searchController.text.trim().toLowerCase();
                     var clients = snapshot.data ?? [];
                     if (_filter == 'VIP') {
-                      clients = clients.where((c) => c.tags.map((t) => t.toLowerCase()).contains('vip')).toList();
+                      clients = clients
+                          .where(
+                            (c) => c.tags
+                                .map((t) => t.toLowerCase())
+                                .contains('vip'),
+                          )
+                          .toList();
                     }
                     if (query.isNotEmpty) {
-                      clients = clients.where((c) => c.fullName.toLowerCase().contains(query)).toList();
+                      clients = clients
+                          .where(
+                            (c) => c.fullName.toLowerCase().contains(query),
+                          )
+                          .toList();
                     }
                     if (clients.isEmpty) {
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text('No clients yet.', style: AppTextStyles.bodyMuted),
+                          const Text(
+                            'No clients yet.',
+                            style: AppTextStyles.bodyMuted,
+                          ),
                           const SizedBox(height: AppSpacing.lg),
                           ElevatedButton(
                             onPressed: () => context.go('/clients/new'),
@@ -110,7 +126,9 @@ class _ClientsListScreenState extends State<ClientsListScreen> {
                         final client = clients[index];
                         return ListTile(
                           title: Text(client.fullName),
-                          subtitle: client.isArchived ? const Text('Archived') : null,
+                          subtitle: client.isArchived
+                              ? const Text('Archived')
+                              : null,
                           onTap: () => context.go('/clients/${client.id}'),
                         );
                       },

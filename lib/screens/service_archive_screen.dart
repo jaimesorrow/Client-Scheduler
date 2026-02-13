@@ -39,7 +39,8 @@ class _ServiceArchiveScreenState extends State<ServiceArchiveScreen> {
   @override
   Widget build(BuildContext context) {
     final id = GoRouterState.of(context).pathParameters['id'] ?? '';
-    final archived = GoRouterState.of(context).uri.queryParameters['archived'] == 'true';
+    final archived =
+        GoRouterState.of(context).uri.queryParameters['archived'] == 'true';
     return Consumer<UserProfileProvider>(
       builder: (context, profileProvider, _) {
         final profile = profileProvider.profile;
@@ -79,7 +80,9 @@ class _ServiceArchiveScreenState extends State<ServiceArchiveScreen> {
               ),
               const SizedBox(height: AppSpacing.sm),
               OutlinedButton(
-                onPressed: _isLoading ? null : () => context.go('/services/$id'),
+                onPressed: _isLoading
+                    ? null
+                    : () => context.go('/services/$id'),
                 child: const Text('Cancel'),
               ),
             ],

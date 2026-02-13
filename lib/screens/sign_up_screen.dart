@@ -103,7 +103,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
           const SizedBox(height: AppSpacing.lg),
           CheckboxListTile(
             value: _acceptTerms,
-            onChanged: _isLoading ? null : (val) => setState(() => _acceptTerms = val ?? false),
+            onChanged: _isLoading
+                ? null
+                : (val) => setState(() => _acceptTerms = val ?? false),
             title: const Text('I agree to Terms and Privacy'),
             controlAffinity: ListTileControlAffinity.leading,
             contentPadding: EdgeInsets.zero,

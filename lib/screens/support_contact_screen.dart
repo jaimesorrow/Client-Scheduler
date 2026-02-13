@@ -34,9 +34,9 @@ class _SupportContactScreenState extends State<SupportContactScreen> {
 
     try {
       // TODO: Replace with mailto or in-app messaging integration.
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Support message queued.')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Support message queued.')));
     } catch (e) {
       setState(() {
         _error = 'Something went wrong. Try again.';
@@ -55,7 +55,10 @@ class _SupportContactScreenState extends State<SupportContactScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Support email: support@cliente.app', style: AppTextStyles.bodyMuted),
+          Text(
+            'Support email: support@cliente.app',
+            style: AppTextStyles.bodyMuted,
+          ),
           const SizedBox(height: AppSpacing.xl),
           TextField(
             controller: _subjectController,
@@ -91,7 +94,9 @@ class _SupportContactScreenState extends State<SupportContactScreen> {
               const SizedBox(width: AppSpacing.lg),
               Expanded(
                 child: OutlinedButton(
-                  onPressed: _isLoading ? null : () => Navigator.of(context).pop(),
+                  onPressed: _isLoading
+                      ? null
+                      : () => Navigator.of(context).pop(),
                   child: const Text('Cancel'),
                 ),
               ),
