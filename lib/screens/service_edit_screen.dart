@@ -170,9 +170,8 @@ class _ServiceEditScreenState extends State<ServiceEditScreen> {
                   ),
                   const SizedBox(height: AppSpacing.sm),
                   OutlinedButton(
-                    onPressed: _isLoading
-                        ? null
-                        : () => context.go('/services/$id'),
+                    onPressed:
+                        _isLoading ? null : () => context.go('/services/$id'),
                     child: const Text('Cancel'),
                   ),
                 ],

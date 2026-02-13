@@ -80,9 +80,8 @@ class _ServiceArchiveScreenState extends State<ServiceArchiveScreen> {
               ),
               const SizedBox(height: AppSpacing.sm),
               OutlinedButton(
-                onPressed: _isLoading
-                    ? null
-                    : () => context.go('/services/$id'),
+                onPressed:
+                    _isLoading ? null : () => context.go('/services/$id'),
                 child: const Text('Cancel'),
               ),
             ],

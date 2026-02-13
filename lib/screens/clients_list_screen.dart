@@ -126,9 +126,8 @@ class _ClientsListScreenState extends State<ClientsListScreen> {
                         final client = clients[index];
                         return ListTile(
                           title: Text(client.fullName),
-                          subtitle: client.isArchived
-                              ? const Text('Archived')
-                              : null,
+                          subtitle:
+                              client.isArchived ? const Text('Archived') : null,
                           onTap: () => context.go('/clients/${client.id}'),
                         );
                       },

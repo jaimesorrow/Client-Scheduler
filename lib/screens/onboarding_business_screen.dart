@@ -96,9 +96,8 @@ class _OnboardingBusinessScreenState extends State<OnboardingBusinessScreen> {
           ),
           const SizedBox(height: AppSpacing.sm),
           OutlinedButton(
-            onPressed: _isLoading
-                ? null
-                : () => context.go('/onboarding/welcome'),
+            onPressed:
+                _isLoading ? null : () => context.go('/onboarding/welcome'),
             child: const Text('Back'),
           ),
         ],

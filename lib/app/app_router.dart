@@ -86,8 +86,7 @@ class AppRouter {
     redirect: (context, state) {
       final user = FirebaseAuth.instance.currentUser;
       final path = state.matchedLocation;
-      final ownerOnly =
-          path.startsWith('/availability') ||
+      final ownerOnly = path.startsWith('/availability') ||
           path.startsWith('/analytics') ||
           path.startsWith('/settings');
       final profileProvider = context.read<UserProfileProvider>();
@@ -95,8 +94,7 @@ class AppRouter {
       final profile = profileProvider.profile;
       final settings = settingsProvider.settings;
       final isOwner = profile?.role == 'owner';
-      final loggingIn =
-          path == '/login' ||
+      final loggingIn = path == '/login' ||
           path == '/signup' ||
           path == '/welcome' ||
           path == '/reset' ||

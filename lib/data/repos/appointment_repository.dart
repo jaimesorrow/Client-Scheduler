@@ -5,7 +5,7 @@ class AppointmentRepository {
   final FirebaseFirestore _firestore;
 
   AppointmentRepository({FirebaseFirestore? firestore})
-    : _firestore = firestore ?? FirebaseFirestore.instance;
+      : _firestore = firestore ?? FirebaseFirestore.instance;
 
   CollectionReference<Map<String, dynamic>> _col(String businessId) =>
       _firestore

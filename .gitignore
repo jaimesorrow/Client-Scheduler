@@ -29,6 +29,12 @@ doc/api/
 .flutter-plugins-dependencies
 .flutter/
 .android-sdk/
+.idea/
+*.iml
+.config/
+.dart-tool/
+.dartServer/
+android/local.properties
 
 ### Secrets and keystores
 android/key.properties

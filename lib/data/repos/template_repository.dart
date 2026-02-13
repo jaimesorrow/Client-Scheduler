@@ -5,7 +5,7 @@ class TemplateRepository {
   final FirebaseFirestore _firestore;
 
   TemplateRepository({FirebaseFirestore? firestore})
-    : _firestore = firestore ?? FirebaseFirestore.instance;
+      : _firestore = firestore ?? FirebaseFirestore.instance;
 
   CollectionReference<Map<String, dynamic>> _col(String businessId) =>
       _firestore

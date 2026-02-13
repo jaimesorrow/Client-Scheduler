@@ -79,9 +79,8 @@ class _OnboardingAvailabilityScreenState
           ),
           const SizedBox(height: AppSpacing.sm),
           OutlinedButton(
-            onPressed: _isLoading
-                ? null
-                : () => context.go('/onboarding/business'),
+            onPressed:
+                _isLoading ? null : () => context.go('/onboarding/business'),
             child: const Text('Back'),
           ),
         ],

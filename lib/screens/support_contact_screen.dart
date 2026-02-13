@@ -94,9 +94,8 @@ class _SupportContactScreenState extends State<SupportContactScreen> {
               const SizedBox(width: AppSpacing.lg),
               Expanded(
                 child: OutlinedButton(
-                  onPressed: _isLoading
-                      ? null
-                      : () => Navigator.of(context).pop(),
+                  onPressed:
+                      _isLoading ? null : () => Navigator.of(context).pop(),
                   child: const Text('Cancel'),
                 ),
               ),

@@ -5,7 +5,7 @@ class ClientRepository {
   final FirebaseFirestore _firestore;
 
   ClientRepository({FirebaseFirestore? firestore})
-    : _firestore = firestore ?? FirebaseFirestore.instance;
+      : _firestore = firestore ?? FirebaseFirestore.instance;
 
   CollectionReference<Map<String, dynamic>> _col(String businessId) =>
       _firestore.collection('businesses').doc(businessId).collection('clients');

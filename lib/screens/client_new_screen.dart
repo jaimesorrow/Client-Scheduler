@@ -135,9 +135,8 @@ class _ClientNewScreenState extends State<ClientNewScreen> {
               const SizedBox(height: AppSpacing.md),
               SwitchListTile(
                 value: _isVip,
-                onChanged: _isLoading
-                    ? null
-                    : (val) => setState(() => _isVip = val),
+                onChanged:
+                    _isLoading ? null : (val) => setState(() => _isVip = val),
                 title: const Text('VIP'),
                 contentPadding: EdgeInsets.zero,
               ),

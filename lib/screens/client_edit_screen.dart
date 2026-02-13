@@ -173,9 +173,8 @@ class _ClientEditScreenState extends State<ClientEditScreen> {
                   ),
                   const SizedBox(height: AppSpacing.sm),
                   OutlinedButton(
-                    onPressed: _isLoading
-                        ? null
-                        : () => context.go('/clients/$id'),
+                    onPressed:
+                        _isLoading ? null : () => context.go('/clients/$id'),
                     child: const Text('Cancel'),
                   ),
                   const SizedBox(height: AppSpacing.sm),
