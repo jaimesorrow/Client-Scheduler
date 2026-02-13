@@ -1,0 +1,419 @@
+[0;36mOld Clientè Review — 20260212_083219[0m
+Repo: /workspaces/Client-Scheduler
+
+[0;36m== git status ==[0m
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	new file:   .gitmodules
+	new file:   tools/sig-cloud-instance-build
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   .gitignore
+	modified:   docs/SPECIFICATION.md
+	modified:   lib/main.dart
+	deleted:    lib/screens/home_screen.dart
+	deleted:    lib/screens/login_screen.dart
+	modified:   pubspec.yaml
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	docs/LAUNCH_READINESS.md
+	docs/MASTER_CHECKLIST.md
+	lib/app/
+	lib/data/
+	lib/screens/account_delete_screen.dart
+	lib/screens/account_profile_screen.dart
+	lib/screens/activity_feed_screen.dart
+	lib/screens/analytics_detail_screen.dart
+	lib/screens/analytics_overview_screen.dart
+	lib/screens/appt_cancel_screen.dart
+	lib/screens/appt_complete_screen.dart
+	lib/screens/appt_detail_screen.dart
+	lib/screens/appt_new_client_screen.dart
+	lib/screens/appt_new_review_screen.dart
+	lib/screens/appt_new_service_screen.dart
+	lib/screens/appt_new_time_screen.dart
+	lib/screens/appt_no_show_screen.dart
+	lib/screens/appt_reschedule_screen.dart
+	lib/screens/appts_list_screen.dart
+	lib/screens/auth_forgot_screen.dart
+	lib/screens/auth_signin_screen.dart
+	lib/screens/auth_signup_screen.dart
+	lib/screens/availability_blackouts_screen.dart
+	lib/screens/availability_hours_screen.dart
+	lib/screens/availability_overview_screen.dart
+	lib/screens/availability_week_screen.dart
+	lib/screens/change_password_screen.dart
+	lib/screens/client_archive_screen.dart
+	lib/screens/client_detail_screen.dart
+	lib/screens/client_edit_screen.dart
+	lib/screens/client_new_screen.dart
+	lib/screens/clients_list_screen.dart
+	lib/screens/dashboard_home_screen.dart
+	lib/screens/forgot_password_screen.dart
+	lib/screens/global_search_screen.dart
+	lib/screens/legal_data_safety_screen.dart
+	lib/screens/legal_privacy_screen.dart
+	lib/screens/legal_terms_screen.dart
+	lib/screens/logout_screen.dart
+	lib/screens/onboarding_availability_screen.dart
+	lib/screens/onboarding_brand_screen.dart
+	lib/screens/onboarding_business_screen.dart
+	lib/screens/onboarding_complete_screen.dart
+	lib/screens/onboarding_hours_screen.dart
+	lib/screens/onboarding_welcome_screen.dart
+	lib/screens/service_archive_screen.dart
+	lib/screens/service_detail_screen.dart
+	lib/screens/service_edit_screen.dart
+	lib/screens/service_new_screen.dart
+	lib/screens/services_list_screen.dart
+	lib/screens/settings_business_profile_screen.dart
+	lib/screens/settings_delete_account_screen.dart
+	lib/screens/settings_home_screen.dart
+	lib/screens/settings_integrations_screen.dart
+	lib/screens/settings_logout_screen.dart
+	lib/screens/settings_notifications_screen.dart
+	lib/screens/settings_policies_screen.dart
+	lib/screens/settings_roles_screen.dart
+	lib/screens/settings_team_screen.dart
+	lib/screens/sign_in_screen.dart
+	lib/screens/sign_up_screen.dart
+	lib/screens/splash_boot_screen.dart
+	lib/screens/support_contact_screen.dart
+	lib/screens/support_help_screen.dart
+	lib/screens/system_hub_screen.dart
+	lib/screens/template_edit_screen.dart
+	lib/screens/template_use_screen.dart
+	lib/screens/templates_list_screen.dart
+	lib/screens/timeoff_create_screen.dart
+	lib/screens/timeoff_list_screen.dart
+	lib/screens/verify_email_screen.dart
+	lib/screens/welcome_screen.dart
+	lib/theme/
+	lib/utils/
+	lib/widgets/
+	review.sh
+	review_reports/
+	scripts/check_android_env.sh
+	writingdocs/
+	writingdocs_pack/
+
+
+[0;36m== git diff --stat ==[0m
+ .gitignore                    |   2 +
+ docs/SPECIFICATION.md         |   2 +-
+ lib/main.dart                 |  49 ++++++++-------------
+ lib/screens/home_screen.dart  |  44 -------------------
+ lib/screens/login_screen.dart | 100 ------------------------------------------
+ pubspec.yaml                  |   5 ++-
+ 6 files changed, 26 insertions(+), 176 deletions(-)
+
+[0;36m== git diff (first 400 lines) ==[0m
+diff --git a/.gitignore b/.gitignore
+index a3dde80..d1f6bc2 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -27,6 +27,8 @@ doc/api/
+ 
+ .flutter-plugins
+ .flutter-plugins-dependencies
++.flutter/
++.android-sdk/
+ 
+ ### Secrets and keystores
+ android/key.properties
+diff --git a/docs/SPECIFICATION.md b/docs/SPECIFICATION.md
+index 2815a70..78db96a 100644
+--- a/docs/SPECIFICATION.md
++++ b/docs/SPECIFICATION.md
+@@ -1,4 +1,4 @@
+-# Clientè Technical Specification
++codex# Clientè Technical Specification
+ 
+ **Version:** 0.1.0 (MVP)  
+ **Last Updated:** February 9, 2026  
+diff --git a/lib/main.dart b/lib/main.dart
+index e2997de..fa36875 100644
+--- a/lib/main.dart
++++ b/lib/main.dart
+@@ -1,47 +1,36 @@
+ import 'package:flutter/material.dart';
+ import 'package:firebase_core/firebase_core.dart';
++import 'package:provider/provider.dart';
+ import 'firebase_options.dart';
+-import 'screens/login_screen.dart';
+-import 'screens/home_screen.dart';
+-import 'package:firebase_auth/firebase_auth.dart';
++import 'app/app_router.dart';
++import 'theme/app_theme.dart';
++import 'data/user_profile_provider.dart';
++import 'data/business_settings_provider.dart';
+ 
+ void main() async {
+   WidgetsFlutterBinding.ensureInitialized();
+   await Firebase.initializeApp(
+     options: DefaultFirebaseOptions.currentPlatform,
+   );
+-  runApp(ClientSchedulerApp());
++  runApp(const ClienteApp());
+ }
+ 
+-class ClientSchedulerApp extends StatelessWidget {
+-  @override
+-  Widget build(BuildContext context) {
+-    return MaterialApp(
+-      title: 'Client Scheduler',
+-      theme: ThemeData(primarySwatch: Colors.blue),
+-      home: AuthWrapper(),
+-    );
+-  }
+-}
++class ClienteApp extends StatelessWidget {
++  const ClienteApp({super.key});
+ 
+-class AuthWrapper extends StatelessWidget {
+   @override
+   Widget build(BuildContext context) {
+-    return StreamBuilder<User?>(
+-      stream: FirebaseAuth.instance.authStateChanges(),
+-      builder: (context, snapshot) {
+-        if (snapshot.connectionState == ConnectionState.waiting) {
+-          return Scaffold(
+-            body: Center(child: CircularProgressIndicator()),
+-          );
+-        }
+-
+-        if (snapshot.hasData && snapshot.data != null) {
+-          return HomeScreen(user: snapshot.data!);
+-        }
+-
+-        return LoginScreen();
+-      },
++    final router = AppRouter.build();
++    return MultiProvider(
++      providers: [
++        ChangeNotifierProvider(create: (_) => UserProfileProvider()),
++        ChangeNotifierProvider(create: (_) => BusinessSettingsProvider()),
++      ],
++      child: MaterialApp.router(
++        title: 'Clientè',
++        theme: AppTheme.build(),
++        routerConfig: router,
++      ),
+     );
+   }
+ }
+diff --git a/lib/screens/home_screen.dart b/lib/screens/home_screen.dart
+deleted file mode 100644
+index e9dd620..0000000
+--- a/lib/screens/home_screen.dart
++++ /dev/null
+@@ -1,44 +0,0 @@
+-import 'package:flutter/material.dart';
+-import 'package:firebase_auth/firebase_auth.dart';
+-
+-class HomeScreen extends StatelessWidget {
+-  final User user;
+-
+-  HomeScreen({required this.user});
+-
+-  Future<void> _logout() async {
+-    await FirebaseAuth.instance.signOut();
+-  }
+-
+-  @override
+-  Widget build(BuildContext context) {
+-    return Scaffold(
+-      appBar: AppBar(
+-        title: Text('Client Scheduler'),
+-        actions: [
+-          PopupMenuButton(
+-            itemBuilder: (context) => [
+-              PopupMenuItem(
+-                child: Text('Logout'),
+-                onTap: _logout,
+-              ),
+-            ],
+-          ),
+-        ],
+-      ),
+-      body: Center(
+-        child: Column(
+-          mainAxisAlignment: MainAxisAlignment.center,
+-          children: [
+-            Text('Welcome, ${user.email}!'),
+-            SizedBox(height: 24),
+-            ElevatedButton(
+-              onPressed: _logout,
+-              child: Text('Logout'),
+-            ),
+-          ],
+-        ),
+-      ),
+-    );
+-  }
+-}
+diff --git a/lib/screens/login_screen.dart b/lib/screens/login_screen.dart
+deleted file mode 100644
+index 3ea9542..0000000
+--- a/lib/screens/login_screen.dart
++++ /dev/null
+@@ -1,100 +0,0 @@
+-import 'package:flutter/material.dart';
+-import 'package:firebase_auth/firebase_auth.dart';
+-
+-class LoginScreen extends StatefulWidget {
+-  @override
+-  State<LoginScreen> createState() => _LoginScreenState();
+-}
+-
+-class _LoginScreenState extends State<LoginScreen> {
+-  final TextEditingController _emailController =
+-      TextEditingController(text: 'reviewer@cliente.app');
+-  final TextEditingController _passwordController =
+-      TextEditingController(text: 'Review@12345');
+-  bool _isLoading = false;
+-  String? _errorMessage;
+-
+-  Future<void> _login() async {
+-    setState(() {
+-      _isLoading = true;
+-      _errorMessage = null;
+-    });
+-
+-    try {
+-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+-        email: _emailController.text.trim(),
+-        password: _passwordController.text.trim(),
+-      );
+-    } on FirebaseAuthException catch (e) {
+-      setState(() {
+-        _errorMessage = e.message ?? 'Login failed';
+-      });
+-    } finally {
+-      setState(() {
+-        _isLoading = false;
+-      });
+-    }
+-  }
+-
+-  @override
+-  void dispose() {
+-    _emailController.dispose();
+-    _passwordController.dispose();
+-    super.dispose();
+-  }
+-
+-  @override
+-  Widget build(BuildContext context) {
+-    return Scaffold(
+-      appBar: AppBar(title: Text('Client Scheduler Login')),
+-      body: Padding(
+-        padding: EdgeInsets.all(16),
+-        child: Column(
+-          mainAxisAlignment: MainAxisAlignment.center,
+-          children: [
+-            TextField(
+-              controller: _emailController,
+-              keyboardType: TextInputType.emailAddress,
+-              decoration: InputDecoration(
+-                labelText: 'Email',
+-                border: OutlineInputBorder(),
+-              ),
+-            ),
+-            SizedBox(height: 16),
+-            TextField(
+-              controller: _passwordController,
+-              obscureText: true,
+-              decoration: InputDecoration(
+-                labelText: 'Password',
+-                border: OutlineInputBorder(),
+-              ),
+-            ),
+-            if (_errorMessage != null) ...[
+-              SizedBox(height: 16),
+-              Text(
+-                _errorMessage!,
+-                style: TextStyle(color: Colors.red),
+-              ),
+-            ],
+-            SizedBox(height: 24),
+-            ElevatedButton(
+-              onPressed: _isLoading ? null : _login,
+-              child: _isLoading
+-                  ? SizedBox(
+-                      height: 20,
+-                      width: 20,
+-                      child: CircularProgressIndicator(),
+-                    )
+-                  : Text('Login'),
+-            ),
+-            SizedBox(height: 12),
+-            Text(
+-              'Test credentials pre-filled',
+-              style: TextStyle(fontSize: 12, color: Colors.grey),
+-            ),
+-          ],
+-        ),
+-      ),
+-    );
+-  }
+-}
+diff --git a/pubspec.yaml b/pubspec.yaml
+index a121e54..2ad3117 100644
+--- a/pubspec.yaml
++++ b/pubspec.yaml
+@@ -3,14 +3,17 @@ description: A minimal Flutter app for Client-Scheduler testing.
+ publish_to: 'none'
+ version: 0.1.0
+ environment:
+-  sdk: '>=2.17.0 <3.0.0'
++  sdk: '>=3.3.0 <4.0.0'
+ 
+ dependencies:
+   flutter:
+     sdk: flutter
+   firebase_core: ^2.24.0
+   firebase_auth: ^4.13.0
++  cloud_firestore: ^4.13.6
+   provider: ^6.0.0
++  go_router: ^14.2.7
++  google_fonts: ^6.2.1
+ 
+ dev_dependencies:
+   flutter_test:
+[0;32m✅ PASS[0m  Git commands executed.
+
+[0;36m== Contract check: forbidden keys ==[0m
+Pattern: startsAt|endsAt|serviceId\b
+[0;32m✅ PASS[0m  No forbidden keys found in lib/ writingdocs/ docs/.
+
+[0;36m== Contract check: required keys (informational) ==[0m
+Pattern: startAt|endAt|serviceIds|totalDurationMin|totalPriceCents|onboardingComplete|businessSettings
+Hits in lib/: 39
+[0;32m✅ PASS[0m  Required keys present (count=39).
+
+[0;36m== Route presence (best-effort) ==[0m
+✅ found route reference: /clients
+✅ found route reference: /clients/new
+✅ found route reference: /services
+✅ found route reference: /services/new
+✅ found route reference: /appointments
+✅ found route reference: /templates
+✅ found route reference: /availability
+✅ found route reference: /analytics
+✅ found route reference: /settings
+✅ found route reference: /logout
+✅ found route reference: /delete
+✅ found route reference: /system
+[0;32m✅ PASS[0m  All key legacy routes referenced in code (best-effort).
+[0;33m⚠️  WARN[0m  Skipping Flutter checks (--no-flutter).
+
+[0;36m==================== SCOREBOARD ====================[0m
+PASS: 4   WARN: 1   FAIL: 0
+[0;33mSTATUS: GO (with caution) ⚠️[0m — You can proceed, but address WARN items soon.

@@ -1,0 +1,3 @@
+[submodule "tools/sig-cloud-instance-build"]
+	path = tools/sig-cloud-instance-build
+	url = https://github.com/CentOS/sig-cloud-instance-build

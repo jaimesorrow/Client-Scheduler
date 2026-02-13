@@ -1,0 +1,46 @@
+Ticket,Epic,Title,Route,DependsOn,Priority,Status
+1,Auth + Session + Routing,Ticket 01,,,P0,Backlog
+2,Auth + Session + Routing,Ticket 02,,,P0,Backlog
+3,Auth + Session + Routing,Ticket 03,,,P0,Backlog
+4,Auth + Session + Routing,Ticket 04,,,P0,Backlog
+5,Auth + Session + Routing,Ticket 05,,,P0,Backlog
+6,Auth + Session + Routing,Ticket 06,,,P0,Backlog
+7,Onboarding + BusinessSettings,Ticket 07,,"01,03,04",P0,Backlog
+8,Onboarding + BusinessSettings,Ticket 08,,"01,03,04",P0,Backlog
+9,Onboarding + BusinessSettings,Ticket 09,,"01,03,04",P0,Backlog
+10,Onboarding + BusinessSettings,Ticket 10,,"01,03,04",P0,Backlog
+11,Core Operations,Ticket 11,,"01,03",P1,Backlog
+12,Core Operations,Ticket 12,,"01,03",P1,Backlog
+13,Core Operations,Ticket 13,,"01,03",P1,Backlog
+14,Core Operations,Ticket 14,,"01,03,11",P1,Backlog
+15,Core Operations,Ticket 15,,"01,03,11",P1,Backlog
+16,Core Operations,Ticket 16,,"01,03,11",P1,Backlog
+17,Core Operations,Ticket 17,,"01,03,11",P1,Backlog
+18,Core Operations,Ticket 18,,"01,03,11",P1,Backlog
+19,Appointments lifecycle,Ticket 19,,"14,29",P0,Backlog
+20,Appointments lifecycle,Ticket 20,,"14,29",P0,Backlog
+21,Appointments lifecycle,Ticket 21,,"14,29",P0,Backlog
+22,Appointments lifecycle,Ticket 22,,"14,29",P0,Backlog
+23,Appointments lifecycle,Ticket 23,,"14,29",P0,Backlog
+24,Appointments lifecycle,Ticket 24,,"14,29",P1,Backlog
+25,Appointments lifecycle,Ticket 25,,"14,29",P1,Backlog
+26,Appointments lifecycle,Ticket 26,,"14,29",P1,Backlog
+27,Appointments lifecycle,Ticket 27,,"14,29",P1,Backlog
+28,Appointments lifecycle,Ticket 28,,"14,29",P1,Backlog
+29,Core Operations,Ticket 29,,"01,03,11",P1,Backlog
+30,Core Operations,Ticket 30,,"01,03,11",P1,Backlog
+31,Core Operations,Ticket 31,,"01,03,11",P1,Backlog
+32,Core Operations,Ticket 32,,"01,03,11",P1,Backlog
+33,Core Operations,Ticket 33,,"01,03,11",P1,Backlog
+34,Templates,Ticket 34,,29,P2,Backlog
+35,Templates,Ticket 35,,29,P2,Backlog
+36,Templates,Ticket 36,,29,P2,Backlog
+37,Owner-only,Ticket 37,,"07,09",P2,Backlog
+38,Owner-only,Ticket 38,,"07,09",P2,Backlog
+39,Owner-only,Ticket 39,,"07,09",P2,Backlog
+40,Owner-only,Ticket 40,,"24,23",P2,Backlog
+41,Owner-only,Ticket 41,,"24,23",P2,Backlog
+42,System + Settings compliance,System Hub (Permission + Error),/system,01,P0,Backlog
+43,System + Settings compliance,Settings: Log Out,/settings/logout,01,P0,Backlog
+44,System + Settings compliance,Settings: Delete Account,/settings/delete-account,01,P0,Backlog
+45,System + Settings compliance,Contact Support,/support/contact,01,P1,Backlog

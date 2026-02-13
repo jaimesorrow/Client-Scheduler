@@ -27,6 +27,8 @@ doc/api/
 
 .flutter-plugins
 .flutter-plugins-dependencies
+.flutter/
+.android-sdk/
 
 ### Secrets and keystores
 android/key.properties

@@ -1,4 +1,4 @@
-# Clientè Technical Specification
+codex# Clientè Technical Specification
 
 **Version:** 0.1.0 (MVP)  
 **Last Updated:** February 9, 2026  
