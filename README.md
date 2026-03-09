@@ -99,3 +99,34 @@ Local helper scripts:
 - `scripts/prepare_local.sh` will run `flutter create .` and `flutter pub get` (requires Flutter installed locally).
 - `scripts/encode_keystore.sh <path/to/keystore.jks>` base64-encodes a keystore file so you can paste it into the GitHub secret `ANDROID_KEYSTORE_BASE64`.
 
+
+## Performance tuning (make screens and links open faster)
+
+The coding word you are looking for is **performance optimization** (or **performance tuning**).
+
+For this app, the most useful workflow is:
+
+1. **Measure first (profiling):**
+   ```bash
+   flutter run --profile
+   ```
+2. **Track frame render speed:**
+   ```bash
+   flutter run --profile --trace-skia
+   ```
+3. **Keep a continuous debug loop during development:**
+   ```bash
+   flutter run
+   ```
+   Then use hot reload after each change.
+4. **Run static checks continuously in another terminal:**
+   ```bash
+   flutter analyze --watch
+   ```
+
+Quick optimization checklist:
+- Prefer `const` widgets where possible to reduce rebuild cost.
+- Initialize expensive services once and show a lightweight loading state.
+- Avoid doing network calls directly inside `build` methods.
+- Keep widgets small and reusable to minimize unnecessary UI rebuilds.
+- Use profile mode (not debug mode) when evaluating runtime performance.
