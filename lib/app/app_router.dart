@@ -76,6 +76,10 @@ import '../screens/timeoff_create_screen.dart';
 import '../screens/timeoff_list_screen.dart';
 import '../screens/verify_email_screen.dart';
 import '../screens/welcome_screen.dart';
+import '../screens/invitations_list_screen.dart';
+import '../screens/invitation_new_screen.dart';
+import '../screens/invitation_detail_screen.dart';
+import '../screens/booking_landing_screen.dart';
 
 class AppRouter {
   static final GoRouter _router = GoRouter(
@@ -104,7 +108,9 @@ class AppRouter {
           path == '/auth/forgot';
 
       if (user == null) {
-        return loggingIn || path == '/splash' ? null : '/auth/signin';
+        return loggingIn || path == '/splash' || path.startsWith('/book/')
+            ? null
+            : '/auth/signin';
       }
 
       if (profile == null && !profileProvider.isLoading) {
@@ -243,6 +249,10 @@ class AppRouter {
       _defaultRoute('/support/help', const SupportHelpScreen()),
       _defaultRoute('/support/contact', const SupportContactScreen()),
       _defaultRoute('/logout', const LogoutScreen()),
+      _fastRoute('/invitations', const InvitationsListScreen()),
+      _fastRoute('/invitations/new', const InvitationNewScreen()),
+      _fastRoute('/invitations/:token', const InvitationDetailScreen()),
+      _defaultRoute('/book/:token', const BookingLandingScreen()),
     ],
   );
 
