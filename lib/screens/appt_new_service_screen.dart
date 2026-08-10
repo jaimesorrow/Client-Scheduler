@@ -149,8 +149,8 @@ class _ApptNewServiceScreenState extends State<ApptNewServiceScreen> {
                     ),
                   ),
 
-                  // Running total
-                  if (_selectedIds.isNotEmpty) ...[
+                  // Running total — only show once services have loaded
+                  if (_selectedIds.isNotEmpty && _loadedServices.isNotEmpty) ...[
                     const Divider(),
                     Padding(
                       padding: const EdgeInsets.symmetric(
