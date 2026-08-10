@@ -1,7 +1,23 @@
+// lib/screens/onboarding_business_screen.dart
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../data/business_settings_repository.dart';
 import '../theme/tokens.dart';
 import '../widgets/screen_scaffold.dart';
+
+const _kTimezones = [
+  'America/New_York',
+  'America/Chicago',
+  'America/Denver',
+  'America/Los_Angeles',
+  'America/Anchorage',
+  'Pacific/Honolulu',
+  'Europe/London',
+  'Europe/Paris',
+  'Asia/Tokyo',
+  'Australia/Sydney',
+];
 
 class OnboardingBusinessScreen extends StatefulWidget {
   const OnboardingBusinessScreen({super.key});
@@ -13,7 +29,7 @@ class OnboardingBusinessScreen extends StatefulWidget {
 
 class _OnboardingBusinessScreenState extends State<OnboardingBusinessScreen> {
   final _nameController = TextEditingController();
-  String _timezone = 'America/Anchorage';
+  String _timezone = 'America/New_York';
   bool _isLoading = false;
   String? _error;
 
@@ -32,8 +48,11 @@ class _OnboardingBusinessScreenState extends State<OnboardingBusinessScreen> {
     });
 
     try {
-      // TODO: Persist business settings to Firestore at /businessSettings/{businessId}.
-      await Future.delayed(const Duration(milliseconds: 300));
+      final user = FirebaseAuth.instance.currentUser!;
+      await BusinessSettingsRepository().update(user.uid, {
+        'businessName': _nameController.text.trim(),
+        'timezone': _timezone,
+      });
       if (!mounted) return;
       context.go('/onboarding/availability');
     } catch (e) {
@@ -62,13 +81,13 @@ class _OnboardingBusinessScreenState extends State<OnboardingBusinessScreen> {
           ),
           const SizedBox(height: AppSpacing.lg),
           DropdownButtonFormField<String>(
-            initialValue: _timezone,
-            items: const [
-              DropdownMenuItem(
-                value: 'America/Anchorage',
-                child: Text('America/Anchorage'),
-              ),
-            ],
+            value: _timezone,
+            items: _kTimezones
+                .map((tz) => DropdownMenuItem(
+                      value: tz,
+                      child: Text(tz),
+                    ))
+                .toList(),
             onChanged: _isLoading
                 ? null
                 : (val) => setState(() => _timezone = val ?? _timezone),

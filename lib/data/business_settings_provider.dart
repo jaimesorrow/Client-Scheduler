@@ -18,4 +18,17 @@ class BusinessSettingsProvider extends ChangeNotifier {
     isLoading = false;
     notifyListeners();
   }
+
+  void markOnboardingComplete() {
+    if (settings == null) return;
+    settings = BusinessSettings(
+      businessId: settings!.businessId,
+      onboardingComplete: true,
+      businessName: settings!.businessName,
+      timezone: settings!.timezone,
+      workingDays: settings!.workingDays,
+      workingHours: settings!.workingHours,
+    );
+    notifyListeners();
+  }
 }

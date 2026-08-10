@@ -6,6 +6,7 @@ import 'app/app_router.dart';
 import 'theme/app_theme.dart';
 import 'data/user_profile_provider.dart';
 import 'data/business_settings_provider.dart';
+import 'data/appointment_draft_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,6 +26,7 @@ class ClienteApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => UserProfileProvider()),
         ChangeNotifierProvider(create: (_) => BusinessSettingsProvider()),
+        ChangeNotifierProvider(create: (_) => AppointmentDraftProvider()),
       ],
       child: MaterialApp.router(
         title: 'Clientè',

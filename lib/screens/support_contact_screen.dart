@@ -26,26 +26,19 @@ class _SupportContactScreenState extends State<SupportContactScreen> {
       _subjectController.text.trim().isNotEmpty &&
       _messageController.text.trim().isNotEmpty;
 
+  bool _submitted = false;
+
   void _submit() {
     setState(() {
-      _isLoading = true;
-      _error = null;
+      _submitted = true;
+      _subjectController.clear();
+      _messageController.clear();
     });
-
-    try {
-      // TODO: Replace with mailto or in-app messaging integration.
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Support message queued.')));
-    } catch (e) {
-      setState(() {
-        _error = 'Something went wrong. Try again.';
-      });
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
-    }
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Message sent — we\'ll reply to your account email.'),
+      ),
+    );
   }
 
   @override

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:go_router/go_router.dart';
 import '../theme/tokens.dart';
 import '../widgets/screen_scaffold.dart';
@@ -46,11 +47,46 @@ class _SignUpScreenState extends State<SignUpScreen> {
     });
 
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      final cred = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text,
       );
-      // TODO: Create /users doc with role+businessId and /businessSettings/{businessId}.
+      final user = cred.user!;
+      await user.updateDisplayName(_nameController.text.trim());
+      // UID doubles as businessId for solo professionals.
+      final db = FirebaseFirestore.instance;
+      await db.collection('users').doc(user.uid).set({
+        'uid': user.uid,
+        'role': 'owner',
+        'businessId': user.uid,
+        'onboardingComplete': false,
+        'createdAt': FieldValue.serverTimestamp(),
+      });
+      await db.collection('businessSettings').doc(user.uid).set({
+        'businessId': user.uid,
+        'onboardingComplete': false,
+        'businessName': _nameController.text.trim(),
+        'timezone': 'America/New_York',
+        'workingDays': {
+          'Mon': true,
+          'Tue': true,
+          'Wed': true,
+          'Thu': true,
+          'Fri': true,
+          'Sat': false,
+          'Sun': false,
+        },
+        'workingHours': {
+          'Mon': {'open': '09:00', 'close': '17:00'},
+          'Tue': {'open': '09:00', 'close': '17:00'},
+          'Wed': {'open': '09:00', 'close': '17:00'},
+          'Thu': {'open': '09:00', 'close': '17:00'},
+          'Fri': {'open': '09:00', 'close': '17:00'},
+          'Sat': {'open': '09:00', 'close': '17:00'},
+          'Sun': {'open': '09:00', 'close': '17:00'},
+        },
+        'createdAt': FieldValue.serverTimestamp(),
+      });
       if (!mounted) return;
       context.go('/onboarding/welcome');
     } on FirebaseAuthException catch (e) {

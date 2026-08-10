@@ -1,5 +1,11 @@
+// lib/screens/onboarding_availability_screen.dart
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import '../data/user_profile_provider.dart';
+import '../data/business_settings_provider.dart';
+import '../data/business_settings_repository.dart';
 import '../theme/tokens.dart';
 import '../widgets/screen_scaffold.dart';
 
@@ -31,9 +37,13 @@ class _OnboardingAvailabilityScreenState
       _error = null;
     });
     try {
-      // TODO: Persist availability to /businessSettings/{businessId} and set onboardingComplete=true.
-      await Future.delayed(const Duration(milliseconds: 300));
+      final user = FirebaseAuth.instance.currentUser!;
+      await BusinessSettingsRepository().setOnboardingComplete(user.uid);
+      await BusinessSettingsRepository()
+          .update(user.uid, {'workingDays': _enabled});
       if (!mounted) return;
+      context.read<BusinessSettingsProvider>().markOnboardingComplete();
+      context.read<UserProfileProvider>().load(user.uid);
       context.go('/dashboard');
     } catch (e) {
       setState(() {

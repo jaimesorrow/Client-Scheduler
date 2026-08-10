@@ -18,11 +18,28 @@ class TemplateRepository {
     return snap.docs.map((d) => Template.fromMap(d.id, d.data())).toList();
   }
 
-  Future<void> create(String businessId, Template template) async {
-    await _col(businessId).add(template.toMap());
+  Future<Template?> get(String businessId, String templateId) async {
+    final doc = await _col(businessId).doc(templateId).get();
+    if (!doc.exists) return null;
+    return Template.fromMap(doc.id, doc.data()!);
+  }
+
+  Future<String> create(String businessId, Template template) async {
+    final doc = await _col(businessId).add({
+      ...template.toMap(),
+      'createdAt': FieldValue.serverTimestamp(),
+    });
+    return doc.id;
   }
 
   Future<void> update(String businessId, Template template) async {
-    await _col(businessId).doc(template.id).update(template.toMap());
+    await _col(businessId).doc(template.id).update({
+      ...template.toMap(),
+      'updatedAt': FieldValue.serverTimestamp(),
+    });
+  }
+
+  Future<void> delete(String businessId, String templateId) async {
+    await _col(businessId).doc(templateId).delete();
   }
 }
