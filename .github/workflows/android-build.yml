@@ -15,7 +15,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: 'stable'
+          channel: 'stable'
 
       - name: Show Flutter version
         run: flutter --version
@@ -24,16 +24,18 @@ jobs:
         run: flutter create . --no-overwrite
 
       - name: Restore keystore from secret (optional)
-        if: secrets.ANDROID_KEYSTORE_BASE64 != ''
+        if: env.ANDROID_KEYSTORE_BASE64 != ''
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
         run: |
           mkdir -p android/app
           echo "$ANDROID_KEYSTORE_BASE64" | base64 --decode > android/app/upload-keystore.jks
-          cat > android/key.properties <<EOF
-storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}
-keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}
-storeFile=app/upload-keystore.jks
-EOF
+          {
+            printf 'storePassword=%s\n' "${{ secrets.ANDROID_KEYSTORE_PASSWORD }}"
+            printf 'keyPassword=%s\n' "${{ secrets.ANDROID_KEY_PASSWORD }}"
+            printf 'keyAlias=%s\n' "${{ secrets.ANDROID_KEY_ALIAS }}"
+            printf 'storeFile=app/upload-keystore.jks\n'
+          } > android/key.properties
 
       - name: Get dependencies
         run: flutter pub get
